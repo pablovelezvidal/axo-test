@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Feeds.css';
 import routes from '../../constants/routes.json';
+import { withRouter } from 'react-router-dom';
 
-const Feeds = () => {
+const Feeds = (props: any) => {
   return (
     <>
       <div className={styles.backButton} data-tid="backButton">
@@ -11,9 +12,11 @@ const Feeds = () => {
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
       </div>
-      <p>Tweets from the user : USER</p>
+      <div className={styles.container}>
+        <p>Tweets from the user : {props.history.location.state?.screenName}</p>
+      </div>
     </>
   );
 };
 
-export default Feeds;
+export default withRouter(Feeds);

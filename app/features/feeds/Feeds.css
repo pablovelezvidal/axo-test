@@ -1,5 +1,13 @@
 .backButton {
   position: absolute;
+  margin: 1%;
+}
+
+.container {
+  position: absolute;
+  margin: 10%;
+  padding: 5%;
+  text-align: center;
 }
 
 .feeds {

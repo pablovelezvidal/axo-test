@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styles from './Home.css';
 import routes from '../constants/routes.json';
 
@@ -9,7 +9,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 const SEARCH_URI =
   'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search';
 
-const Home = (): JSX.Element => {
+const Home = (props: any): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
   const typeahead = React.createRef<AsyncTypeahead<any>>();
@@ -36,9 +36,12 @@ const Home = (): JSX.Element => {
       });
   };
 
-  const handleSelected = (selected: any) => {
-    console.log('the selected', selected);
-    <Redirect to="feeds"></Redirect>;
+  const handleSelected = (selected: Array<{ screen_name: string }>) => {
+    console.log(selected);
+    props.history.push({
+      pathname: routes.FEEDS,
+      state: { screenName: selected[0].screen_name },
+    });
   };
 
   // Bypass client-side filtering by returning `true`. Results are already
@@ -82,4 +85,4 @@ const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default withRouter(Home);
