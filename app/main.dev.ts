@@ -24,6 +24,8 @@ export default class AppUpdater {
   }
 }
 
+app.allowRendererProcessReuse = true;
+
 let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -96,6 +98,8 @@ const createWindow = async () => {
       mainWindow.focus();
     }
   });
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', () => {
     mainWindow = null;

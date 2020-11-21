@@ -7,8 +7,8 @@
       "name": "Electron: Main",
       "protocol": "inspector",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["start-main-debug"],
-      "preLaunchTask": "Start Webpack Dev"
+      "preLaunchTask": "Start Webpack Dev",
+      "runtimeArgs": [".", "--enable-logging", "--remote-debugging-port=9223"]
     },
     {
       "name": "Electron: Renderer",
