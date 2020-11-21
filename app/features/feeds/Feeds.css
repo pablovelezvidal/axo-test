@@ -5,9 +5,12 @@
 
 .container {
   position: absolute;
-  margin: 10%;
-  padding: 5%;
+  margin: 5%;
+  box-sizing: content-box;
+  max-height: 90%;
   text-align: center;
+  overflow-y: scroll;
+  overflow: scroll;
 }
 
 .feeds {
