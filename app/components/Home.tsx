@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import styles from './Home.css';
 import routes from '../constants/routes.json';
@@ -12,6 +12,10 @@ const SEARCH_URI =
 const Home = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
+  const typeahead = React.createRef<AsyncTypeahead<any>>();
+  useEffect(() => {
+    typeahead?.current?.focus();
+  }, []);
 
   const handleSearch = (query: any) => {
     setIsLoading(true);
@@ -19,9 +23,7 @@ const Home = (): JSX.Element => {
     fetch(`${SEARCH_URI}?q=${query}`)
       .then((resp) => resp.json())
       .then((items) => {
-        console.log(items);
         const options = items.map((i: any) => {
-          console.log(i);
           return {
             profile_image_url_https: i.profile_image_url_https,
             id: i.id,
@@ -34,25 +36,34 @@ const Home = (): JSX.Element => {
       });
   };
 
+  const handleSelected = (selected: any) => {
+    console.log('the selected', selected);
+    <Redirect to="feeds"></Redirect>;
+  };
+
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
   const filterBy = () => true;
 
   return (
-    <>
+    <div className={styles.container}>
       <div>
-        <p>Enter the Twitter User Name</p>
+        <p>Type a user name, select it from the list and see the feeds!</p>
       </div>
       <AsyncTypeahead
+        ref={typeahead}
         filterBy={filterBy}
         id="async-example"
         isLoading={isLoading}
         labelKey="screen_name"
         minLength={3}
         onSearch={handleSearch}
+        onChange={(selected: any) => {
+          handleSelected(selected);
+        }}
         options={options}
-        placeholder="Search for a Github user..."
-        renderMenuItemChildren={(option, props) => (
+        placeholder="Search for a Twitter user ..."
+        renderMenuItemChildren={(option) => (
           <>
             <img
               alt={option.screen_name}
@@ -67,7 +78,7 @@ const Home = (): JSX.Element => {
           </>
         )}
       />
-    </>
+    </div>
   );
 };
 

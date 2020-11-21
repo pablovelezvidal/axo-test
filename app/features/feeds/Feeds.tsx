@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Counter.css';
+import styles from './Feeds.css';
 import routes from '../../constants/routes.json';
 
-const Counter = () => {
+const Feeds = () => {
   return (
     <>
       <div className={styles.backButton} data-tid="backButton">
@@ -16,4 +16,4 @@ const Counter = () => {
   );
 };
 
-export default Counter;
+export default Feeds;

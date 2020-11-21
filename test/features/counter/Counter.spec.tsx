@@ -6,17 +6,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import Counter from '../../../app/features/counter/Counter';
-import * as counterSlice from '../../../app/features/counter/counterSlice';
+import Feeds from '../../../app/features/feeds/Feeds';
+import * as feedsSlice from '../../../app/features/feeds/feedsSlice';
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.useFakeTimers();
 
 function setup(
-  preloadedState: { counter: { value: number } } = { counter: { value: 1 } }
+  preloadedState: { feeds: { value: number } } = { feeds: { value: 1 } }
 ) {
   const store = configureStore({
-    reducer: { counter: counterSlice.default },
+    reducer: { feeds: feedsSlice.default },
     preloadedState,
   });
 
@@ -24,7 +24,7 @@ function setup(
     mount(
       <Provider store={store}>
         <Router>
-          <Counter />
+          <Feeds />
         </Router>
       </Provider>
     );
@@ -33,11 +33,11 @@ function setup(
     store,
     component,
     buttons: component.find('button'),
-    p: component.find('.counter'),
+    p: component.find('.feeds'),
   };
 }
 
-describe('Counter component', () => {
+describe('Feeds component', () => {
   it('should should display count', () => {
     const { p } = setup();
     expect(p.text()).toMatch(/^1$/);
@@ -45,7 +45,7 @@ describe('Counter component', () => {
 
   it('should first button should call increment', () => {
     const { buttons } = setup();
-    const incrementSpy = jest.spyOn(counterSlice, 'increment');
+    const incrementSpy = jest.spyOn(feedsSlice, 'increment');
 
     buttons.at(0).simulate('click');
     expect(incrementSpy).toBeCalled();
@@ -58,7 +58,7 @@ describe('Counter component', () => {
       .create(
         <Provider store={store}>
           <Router>
-            <Counter />
+            <Feeds />
           </Router>
         </Provider>
       )
@@ -69,7 +69,7 @@ describe('Counter component', () => {
 
   it('should second button should call decrement', () => {
     const { buttons } = setup();
-    const decrementSyp = jest.spyOn(counterSlice, 'decrement');
+    const decrementSyp = jest.spyOn(feedsSlice, 'decrement');
     buttons.at(1).simulate('click');
     expect(decrementSyp).toBeCalled();
     decrementSyp.mockRestore();
@@ -77,7 +77,7 @@ describe('Counter component', () => {
 
   it('should third button should call incrementIfOdd', () => {
     const { buttons } = setup();
-    const incrementIfOdd = jest.spyOn(counterSlice, 'incrementIfOdd');
+    const incrementIfOdd = jest.spyOn(feedsSlice, 'incrementIfOdd');
     buttons.at(2).simulate('click');
     expect(incrementIfOdd).toBeCalled();
     incrementIfOdd.mockRestore();
@@ -85,7 +85,7 @@ describe('Counter component', () => {
 
   it('should fourth button should call incrementAsync', () => {
     const { buttons } = setup();
-    const incrementAsync = jest.spyOn(counterSlice, 'incrementAsync');
+    const incrementAsync = jest.spyOn(feedsSlice, 'incrementAsync');
     buttons.at(3).simulate('click');
     expect(incrementAsync).toBeCalled();
     incrementAsync.mockRestore();
@@ -104,21 +104,21 @@ describe('Counter component', () => {
   });
 
   it('shouldnt change if even and if odd button clicked', () => {
-    const { buttons, p } = setup({ counter: { value: 2 } });
+    const { buttons, p } = setup({ feeds: { value: 2 } });
     buttons.at(2).simulate('click');
     expect(p.text()).toMatch(/^2$/);
   });
 
   it('should change if odd and if odd button clicked', () => {
-    const { buttons, p } = setup({ counter: { value: 1 } });
+    const { buttons, p } = setup({ feeds: { value: 1 } });
     buttons.at(2).simulate('click');
     expect(p.text()).toMatch(/^2$/);
   });
 });
 
-describe('Test counter actions', () => {
+describe('Test feeds actions', () => {
   it('should not call incrementAsync before timer', () => {
-    const fn = counterSlice.incrementAsync(1000);
+    const fn = feedsSlice.incrementAsync(1000);
     expect(fn).toBeInstanceOf(Function);
     const dispatch = jest.fn();
     // @ts-ignore
@@ -128,7 +128,7 @@ describe('Test counter actions', () => {
   });
 
   it('should call incrementAsync after timer', () => {
-    const fn = counterSlice.incrementAsync(1000);
+    const fn = feedsSlice.incrementAsync(1000);
     expect(fn).toBeInstanceOf(Function);
     const dispatch = jest.fn();
     // @ts-ignore
