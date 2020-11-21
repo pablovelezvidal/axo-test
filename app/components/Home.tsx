@@ -18,22 +18,26 @@ const Home = (props: any): JSX.Element => {
   }, []);
 
   const handleSearch = (query: any) => {
-    setIsLoading(true);
+    props.history.push({
+      pathname: routes.FEEDS,
+      state: { screenName: 'AlvaroUribeVel' },
+    });
+    // setIsLoading(true);
 
-    fetch(`${SEARCH_URI}?q=${query}`)
-      .then((resp) => resp.json())
-      .then((items) => {
-        const options = items.map((i: any) => {
-          return {
-            profile_image_url_https: i.profile_image_url_https,
-            id: i.id,
-            screen_name: i.screen_name,
-          };
-        });
+    // fetch(`${SEARCH_URI}?q=${query}`)
+    //   .then((resp) => resp.json())
+    //   .then((items) => {
+    //     const options = items.map((i: any) => {
+    //       return {
+    //         profile_image_url_https: i.profile_image_url_https,
+    //         id: i.id,
+    //         screen_name: i.screen_name,
+    //       };
+    //     });
 
-        setOptions(options);
-        setIsLoading(false);
-      });
+    //     setOptions(options);
+    //     setIsLoading(false);
+    //   });
   };
 
   const handleSelected = (selected: Array<{ screen_name: string }>) => {
