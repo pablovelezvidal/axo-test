@@ -1,32 +1,33 @@
 import React from 'react';
+import styles from './Tweet.css';
 
 const TweetBox = (props: any) => {
-  return <div className="tweet-body">{props.children}</div>;
+  return <div className={styles.tweetBody}>{props.children}</div>;
 };
 
 const Image = (props: any) => {
-  return <img src={props.image} alt="Logo" className="picture"></img>;
+  return <img src={props.image} alt="Logo" className={styles.picture}></img>;
 };
 
 const Date = (props: any) => {
-  return <div className="date">{props.date}</div>;
+  return <div className={styles.date}>{props.date}</div>;
 };
 
 const Name = (props: any) => {
-  return <div className="name">{props.name}</div>;
+  return <div className={styles.name}>{props.name}</div>;
 };
 
 const TweetBody = (props: any) => {
-  return <div className="tweet">{props.tweet}</div>;
+  return <div className={styles.tweet}>{props.tweet}</div>;
 };
 
 const Tweet = (props: any) => {
   return (
     <TweetBox>
-      <div className="inner-body">
+      <div className={styles.innerBody}>
         <Image image={props.image} />
-        <div className="body">
-          <div className="inner-body">
+        <div className={styles.body}>
+          <div className={styles.innerBody}>
             <Name name={props.name} />
             <Date date={props.date} />
           </div>
