@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`quantity selector component should have default value of 10 should match exact snapshot 1`] = `
+<select
+  className="browser-default custom-select"
+  defaultValue="10"
+  onChange={[Function]}
+>
+  <option
+    value="10"
+  >
+    Load 10 Tweets
+  </option>
+  <option
+    value="20"
+  >
+    Load 20 Tweets
+  </option>
+  <option
+    value="50"
+  >
+    Load 50 Tweets
+  </option>
+</select>
+`;

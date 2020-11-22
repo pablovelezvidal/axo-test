@@ -41,7 +41,7 @@ const Home = (props: any): JSX.Element => {
   return (
     <div className={styles.container}>
       {hasErrors && <p>There was a problem loading the users!</p>}
-      <div>
+      <div className="main-title">
         <p>Type a user name, select it from the list and see the feeds!</p>
       </div>
       <AsyncTypeahead

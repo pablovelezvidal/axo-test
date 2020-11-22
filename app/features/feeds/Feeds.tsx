@@ -11,7 +11,7 @@ import QuantitySelector from './quantitySelector/QuantitySelector';
 import { fetchFeeds, feedsSelector } from '../../slices/feedsSlice';
 import { usersSelector } from '../../slices/usersSlice';
 
-const Feeds = (props: any): JSX.Element => {
+const Feeds = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const { feeds, loading, hasErrors } = useSelector(feedsSelector);
@@ -55,7 +55,7 @@ const Feeds = (props: any): JSX.Element => {
         <QuantitySelector></QuantitySelector>
       </div>
       <div className={styles.container}>
-        <p>Tweets from the user : {userSelected}</p>
+        <p className="user-title">Tweets from the user : {userSelected}</p>
         {renderFeeds()}
       </div>
     </>

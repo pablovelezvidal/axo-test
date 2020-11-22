@@ -5,7 +5,7 @@ import { AppThunk } from '../store';
 const SEARCH_URI = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 const BEARER_TOKEN = process.env.BEARER_TOKEN;
 
-type State = {
+export type State = {
   loading: boolean;
   hasErrors: boolean;
   feeds: Array<any>;

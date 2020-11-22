@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers feeds should handle getFeeds 1`] = `
+Object {
+  "feeds": Array [],
+  "hasErrors": false,
+  "loading": true,
+}
+`;
+
+exports[`reducers feeds should handle getFeedsFailure 1`] = `
+Object {
+  "feeds": Array [],
+  "hasErrors": true,
+  "loading": false,
+}
+`;
+
+exports[`reducers feeds should handle getFeedsSuccess 1`] = `
+Object {
+  "feeds": Array [
+    Object {
+      "id": 1,
+      "text": "1",
+    },
+    Object {
+      "id": 2,
+      "text": "2",
+    },
+  ],
+  "hasErrors": false,
+  "loading": false,
+}
+`;
+
+exports[`reducers feeds should handle initial state 1`] = `
+Object {
+  "feeds": Array [],
+  "hasErrors": false,
+  "loading": false,
+}
+`;
+
+exports[`reducers feeds should handle unknown action type 1`] = `
+Object {
+  "feeds": Array [],
+  "hasErrors": false,
+  "loading": true,
+}
+`;
