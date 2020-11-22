@@ -9,14 +9,16 @@ import Tweet from './tweet/tweet';
 import QuantitySelector from './quantitySelector/QuantitySelector';
 
 import { fetchFeeds, feedsSelector } from '../../slices/feedsSlice';
+import { usersSelector } from '../../slices/usersSlice';
 
 const Feeds = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   const { feeds, loading, hasErrors } = useSelector(feedsSelector);
+  const { userSelected } = useSelector(usersSelector);
 
   useEffect(() => {
-    dispatch(fetchFeeds(props.history.location.state?.screenName));
+    dispatch(fetchFeeds(userSelected));
   }, []);
 
   const renderFeeds = () => {

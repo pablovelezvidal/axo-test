@@ -9,12 +9,14 @@ type State = {
   isLoading: boolean;
   hasErrors: boolean;
   users: Array<any>;
+  userSelected: string;
 };
 
 const initialState: State = {
   isLoading: false,
   hasErrors: false,
   users: [],
+  userSelected: '',
 };
 
 const usersSlice = createSlice({
@@ -33,6 +35,9 @@ const usersSlice = createSlice({
       state.isLoading = false;
       state.hasErrors = true;
     },
+    setUserSelected: (state, { payload }) => {
+      state.userSelected = payload;
+    },
   },
 });
 
@@ -40,6 +45,7 @@ export const {
   getUsers,
   getUsersSuccess,
   getUsersFailure,
+  setUserSelected,
 } = usersSlice.actions;
 
 export const usersSelector = (state: State): any => state.users;

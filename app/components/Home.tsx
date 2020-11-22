@@ -3,7 +3,11 @@ import { withRouter } from 'react-router-dom';
 import styles from './Home.css';
 import routes from '../constants/routes.json';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers, usersSelector } from '../slices/usersSlice';
+import {
+  fetchUsers,
+  usersSelector,
+  setUserSelected,
+} from '../slices/usersSlice';
 
 import TwitterUserListItem from './twitterUsers/TwitterUserListItem';
 
@@ -20,17 +24,13 @@ const Home = (props: any): JSX.Element => {
   }, []);
 
   const handleSearch = (query: string) => {
-    //dispatch(fetchUsers(query));
-    props.history.push({
-      pathname: routes.FEEDS,
-      state: { screenName: 'AlvaroUribeVel' },
-    });
+    dispatch(fetchUsers(query));
   };
 
   const handleSelected = (selected: Array<{ screen_name: string }>) => {
+    dispatch(setUserSelected(selected[0].screen_name));
     props.history.push({
       pathname: routes.FEEDS,
-      state: { screenName: selected[0].screen_name },
     });
   };
 
