@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-import { AppThunk } from '../../store';
+import { AppThunk } from '../store';
 
 const SEARCH_URI = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 const BEARER_TOKEN = process.env.BEARER_TOKEN;

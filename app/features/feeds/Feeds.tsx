@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './Feeds.css';
 import routes from '../../constants/routes.json';
 import { withRouter } from 'react-router-dom';
-import Tweet from '../tweet/tweet';
+import Tweet from './tweet/tweet';
 
-import { fetchFeeds, feedsSelector } from './feedsSlice';
+import { fetchFeeds, feedsSelector } from '../../slices/feedsSlice';
 
-const Feeds = (props: any) => {
+const Feeds = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   const { feeds, loading, hasErrors } = useSelector(feedsSelector);

@@ -1,47 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styles from './Home.css';
 import routes from '../constants/routes.json';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUsers, usersSelector } from '../slices/usersSlice';
+
+import TwitterUserListItem from './twitterUsers/TwitterUserListItem';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-const SEARCH_URI =
-  'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search';
-
 const Home = (props: any): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState([]);
   const typeahead = React.createRef<AsyncTypeahead<any>>();
+  const dispatch = useDispatch();
+  const { users, isLoading, hasErrors } = useSelector(usersSelector);
+
   useEffect(() => {
     typeahead?.current?.focus();
   }, []);
 
-  const handleSearch = (query: any) => {
-    props.history.push({
-      pathname: routes.FEEDS,
-      state: { screenName: 'AlvaroUribeVel' },
-    });
-    // setIsLoading(true);
-
-    // fetch(`${SEARCH_URI}?q=${query}`)
-    //   .then((resp) => resp.json())
-    //   .then((items) => {
-    //     const options = items.map((i: any) => {
-    //       return {
-    //         profile_image_url_https: i.profile_image_url_https,
-    //         id: i.id,
-    //         screen_name: i.screen_name,
-    //       };
-    //     });
-
-    //     setOptions(options);
-    //     setIsLoading(false);
-    //   });
+  const handleSearch = (query: string) => {
+    dispatch(fetchUsers(query));
   };
 
   const handleSelected = (selected: Array<{ screen_name: string }>) => {
-    console.log(selected);
     props.history.push({
       pathname: routes.FEEDS,
       state: { screenName: selected[0].screen_name },
@@ -54,6 +36,7 @@ const Home = (props: any): JSX.Element => {
 
   return (
     <div className={styles.container}>
+      {hasErrors && <p>There was a problem loading the users!</p>}
       <div>
         <p>Type a user name, select it from the list and see the feeds!</p>
       </div>
@@ -68,21 +51,13 @@ const Home = (props: any): JSX.Element => {
         onChange={(selected: any) => {
           handleSelected(selected);
         }}
-        options={options}
+        options={users}
         placeholder="Search for a Twitter user ..."
         renderMenuItemChildren={(option) => (
-          <>
-            <img
-              alt={option.screen_name}
-              src={option.profile_image_url_https}
-              style={{
-                height: '24px',
-                marginRight: '10px',
-                width: '24px',
-              }}
-            />
-            <span>{option.screen_name}</span>
-          </>
+          <TwitterUserListItem
+            screenName={option.screen_name}
+            profileImage={option.profile_image_url_https}
+          ></TwitterUserListItem>
         )}
       />
     </div>
