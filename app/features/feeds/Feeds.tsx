@@ -55,7 +55,7 @@ const Feeds = (props: any): JSX.Element => {
         <QuantitySelector></QuantitySelector>
       </div>
       <div className={styles.container}>
-        <p>Tweets from the user : {props.history.location.state?.screenName}</p>
+        <p>Tweets from the user : {userSelected}</p>
         {renderFeeds()}
       </div>
     </>

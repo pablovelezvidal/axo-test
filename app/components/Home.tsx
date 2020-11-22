@@ -46,6 +46,7 @@ const Home = (props: any): JSX.Element => {
       </div>
       <AsyncTypeahead
         ref={typeahead}
+        delay={1000}
         filterBy={filterBy}
         id="async-example"
         isLoading={isLoading}
