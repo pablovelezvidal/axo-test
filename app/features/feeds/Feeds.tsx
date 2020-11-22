@@ -1,32 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './Feeds.css';
 import routes from '../../constants/routes.json';
 import { withRouter } from 'react-router-dom';
 import Tweet from '../tweet/tweet';
 
-const SEARCH_URI = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-const BEARER_TOKEN = process.env.BEARER_TOKEN;
+import { fetchFeeds, feedsSelector } from './feedsSlice';
 
 const Feeds = (props: any) => {
-  const [tweets, setTweets] = useState([]);
+  const dispatch = useDispatch();
+
+  const { feeds, loading, hasErrors } = useSelector(feedsSelector);
+
   useEffect(() => {
-    fetch(
-      `${SEARCH_URI}?screen_name=${props.history.location.state?.screenName}&count=2`,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${BEARER_TOKEN}`,
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((items) => {
-        console.log(items);
-        setTweets(items);
-      });
+    dispatch(fetchFeeds(props.history.location.state?.screenName));
   }, []);
+
+  const renderFeeds = () => {
+    if (loading) return <p>Loading feeds...</p>;
+    if (hasErrors || !feeds)
+      return (
+        <p>
+          There was an error fetching the feeds... Have you set the Bearer Token
+          as stated in the instructions?
+        </p>
+      );
+
+    return feeds.map((tweet: any, index: number | string) => {
+      return (
+        <Tweet
+          name={tweet.user.name}
+          tweet={tweet.text}
+          date={tweet.created_at}
+          image={tweet.user.profile_image_url_https}
+          key={index + '-' + tweet.id}
+        ></Tweet>
+      );
+    });
+  };
+
   return (
     <>
       <div className={styles.backButton} data-tid="backButton">
@@ -36,17 +49,7 @@ const Feeds = (props: any) => {
       </div>
       <div className={styles.container}>
         <p>Tweets from the user : {props.history.location.state?.screenName}</p>
-        {tweets.map((tweet: any, index) => {
-          return (
-            <Tweet
-              name={tweet.user.name}
-              tweet={tweet.text}
-              date={tweet.created_at}
-              image={tweet.user.profile_image_url_https}
-              key={index + '-' + tweet.id}
-            ></Tweet>
-          );
-        })}
+        {renderFeeds()}
       </div>
     </>
   );

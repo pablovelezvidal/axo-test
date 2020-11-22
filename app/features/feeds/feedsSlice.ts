@@ -1,38 +1,71 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-import { AppThunk, RootState } from '../../store';
+import { AppThunk } from '../../store';
+
+const SEARCH_URI = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+const BEARER_TOKEN = process.env.BEARER_TOKEN;
+
+type State = {
+  loading: boolean;
+  hasErrors: boolean;
+  feeds: Array<any>;
+};
+
+const initialState: State = {
+  loading: false,
+  hasErrors: false,
+  feeds: [],
+};
 
 const feedsSlice = createSlice({
   name: 'feeds',
-  initialState: { value: 0 },
+  initialState: initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    getFeeds: (state) => {
+      state.loading = true;
     },
-    decrement: (state) => {
-      state.value -= 1;
+    getFeedsSuccess: (state, { payload }) => {
+      state.feeds = payload;
+      state.loading = false;
+      state.hasErrors = false;
+    },
+    getFeedsFailure: (state) => {
+      state.loading = false;
+      state.hasErrors = true;
     },
   },
 });
 
-export const { increment, decrement } = feedsSlice.actions;
+export const {
+  getFeeds,
+  getFeedsSuccess,
+  getFeedsFailure,
+} = feedsSlice.actions;
 
-export const incrementIfOdd = (): AppThunk => {
-  return (dispatch, getState) => {
-    const state = getState();
-    if (state.feeds.value % 2 === 0) {
-      return;
+export const feedsSelector = (state: State): any => state.feeds;
+
+// Asynchronous thunk action
+export const fetchFeeds = (screenName: string): AppThunk => {
+  return async (dispatch: (arg0: any) => void) => {
+    dispatch(getFeeds());
+
+    try {
+      const response = await fetch(
+        `${SEARCH_URI}?screen_name=${screenName}&count=2`,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${BEARER_TOKEN}`,
+          },
+        }
+      );
+      const data = await response.json();
+      dispatch(getFeedsSuccess(data));
+    } catch (error) {
+      dispatch(getFeedsFailure());
     }
-    dispatch(increment());
   };
 };
 
-export const incrementAsync = (delay = 1000): AppThunk => (dispatch) => {
-  setTimeout(() => {
-    dispatch(increment());
-  }, delay);
-};
-
 export default feedsSlice.reducer;
-
-export const selectCount = (state: RootState) => state.feeds.value;
