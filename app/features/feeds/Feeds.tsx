@@ -6,6 +6,8 @@ import routes from '../../constants/routes.json';
 import { withRouter } from 'react-router-dom';
 import Tweet from './tweet/tweet';
 
+import QuantitySelector from './quantitySelector/QuantitySelector';
+
 import { fetchFeeds, feedsSelector } from '../../slices/feedsSlice';
 
 const Feeds = (props: any): JSX.Element => {
@@ -46,6 +48,9 @@ const Feeds = (props: any): JSX.Element => {
         <Link to={routes.HOME}>
           <i className="fa fa-arrow-left fa-3x" />
         </Link>
+      </div>
+      <div className={styles.quantitySelector}>
+        <QuantitySelector></QuantitySelector>
       </div>
       <div className={styles.container}>
         <p>Tweets from the user : {props.history.location.state?.screenName}</p>

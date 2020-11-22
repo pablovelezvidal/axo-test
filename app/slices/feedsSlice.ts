@@ -45,13 +45,16 @@ export const {
 export const feedsSelector = (state: State): any => state.feeds;
 
 // Asynchronous thunk action
-export const fetchFeeds = (screenName: string): AppThunk => {
+export const fetchFeeds = (
+  screenName: string,
+  quantity: number = 10
+): AppThunk => {
   return async (dispatch: (arg0: any) => void) => {
     dispatch(getFeeds());
 
     try {
       const response = await fetch(
-        `${SEARCH_URI}?screen_name=${screenName}&count=2`,
+        `${SEARCH_URI}?screen_name=${screenName}&count=${quantity}`,
         {
           headers: {
             Accept: 'application/json',

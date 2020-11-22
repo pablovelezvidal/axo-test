@@ -46,3 +46,9 @@
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.quantitySelector {
+  position: absolute;
+  right: 5%;
+  top: 2%;
+}

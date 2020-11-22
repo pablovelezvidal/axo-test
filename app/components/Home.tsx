@@ -20,7 +20,11 @@ const Home = (props: any): JSX.Element => {
   }, []);
 
   const handleSearch = (query: string) => {
-    dispatch(fetchUsers(query));
+    //dispatch(fetchUsers(query));
+    props.history.push({
+      pathname: routes.FEEDS,
+      state: { screenName: 'AlvaroUribeVel' },
+    });
   };
 
   const handleSelected = (selected: Array<{ screen_name: string }>) => {
