@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import styles from './Home.css';
 import routes from '../constants/routes.json';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchUsers,
   usersSelector,
@@ -11,7 +12,6 @@ import {
 
 import TwitterUserListItem from './twitterUsers/TwitterUserListItem';
 
-import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Home = (props: any): JSX.Element => {
@@ -62,7 +62,7 @@ const Home = (props: any): JSX.Element => {
           <TwitterUserListItem
             screenName={option.screen_name}
             profileImage={option.profile_image_url_https}
-          ></TwitterUserListItem>
+          />
         )}
       />
     </div>

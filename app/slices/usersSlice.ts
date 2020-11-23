@@ -21,7 +21,7 @@ const initialState: State = {
 
 const usersSlice = createSlice({
   name: 'users',
-  initialState: initialState,
+  initialState,
   reducers: {
     getUsers: (state) => {
       state.isLoading = true;

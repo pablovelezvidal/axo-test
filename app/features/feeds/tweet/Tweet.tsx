@@ -6,7 +6,7 @@ const TweetBox = (props: any) => {
 };
 
 const Image = (props: any) => {
-  return <img src={props.image} alt="Logo" className={styles.picture}></img>;
+  return <img src={props.image} alt="Logo" className={styles.picture} />;
 };
 
 const Date = (props: any) => {

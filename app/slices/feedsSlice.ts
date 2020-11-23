@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AppThunk } from '../store';
 
 const SEARCH_URI = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-const BEARER_TOKEN = process.env.BEARER_TOKEN;
+const { BEARER_TOKEN } = process.env;
 
 export type State = {
   loading: boolean;
@@ -19,7 +19,7 @@ const initialState: State = {
 
 const feedsSlice = createSlice({
   name: 'feeds',
-  initialState: initialState,
+  initialState,
   reducers: {
     getFeeds: (state) => {
       state.loading = true;
@@ -45,10 +45,7 @@ export const {
 export const feedsSelector = (state: State): any => state.feeds;
 
 // Asynchronous thunk action
-export const fetchFeeds = (
-  screenName: string,
-  quantity: number = 10
-): AppThunk => {
+export const fetchFeeds = (screenName: string, quantity = 10): AppThunk => {
   return async (dispatch: (arg0: any) => void) => {
     dispatch(getFeeds());
 

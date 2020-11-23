@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Feeds.css';
 import routes from '../../constants/routes.json';
-import { withRouter } from 'react-router-dom';
+
 import Tweet from './tweet/tweet';
 
 import QuantitySelector from './quantitySelector/QuantitySelector';
@@ -38,8 +38,8 @@ const Feeds = (): JSX.Element => {
           tweet={tweet.text}
           date={tweet.created_at}
           image={tweet.user.profile_image_url_https}
-          key={index + '-' + tweet.id}
-        ></Tweet>
+          key={`${index}-${tweet.id}`}
+        />
       );
     });
   };
@@ -52,10 +52,10 @@ const Feeds = (): JSX.Element => {
         </Link>
       </div>
       <div className={styles.quantitySelector}>
-        <QuantitySelector></QuantitySelector>
+        <QuantitySelector />
       </div>
       <div className={styles.container}>
-        <p className="user-title">Tweets from the user : {userSelected}</p>
+        <p className="user-title">Tweets from the user :{userSelected}</p>
         {renderFeeds()}
       </div>
     </>
