@@ -5,7 +5,7 @@
 
 .container {
   position: absolute;
-  margin: 5%;
+  margin: 5% 2%;
   box-sizing: content-box;
   max-height: 90%;
   text-align: center;

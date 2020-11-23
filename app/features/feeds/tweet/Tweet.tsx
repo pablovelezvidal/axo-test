@@ -1,37 +1,53 @@
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import styles from './Tweet.css';
 
-const TweetBox = (props: any) => {
-  return <div className={styles.tweetBody}>{props.children}</div>;
+type TweetProps = {
+  image: string;
+  name: string;
+  date: string;
+  tweet: string;
 };
 
-const Image = (props: any) => {
-  return <img src={props.image} alt="Logo" className={styles.picture} />;
+const TweetBox: React.FC = ({ children }) => {
+  return <div className={styles.tweetBody}>{children}</div>;
 };
 
-const Date = (props: any) => {
-  return <div className={styles.date}>{props.date}</div>;
+const Image: React.FC<{ image: string }> = ({ image }: { image: string }) => {
+  return <img src={image} alt="Logo" className={styles.picture} />;
 };
 
-const Name = (props: any) => {
-  return <div className={styles.name}>{props.name}</div>;
+const Date: React.FC<{ date: string }> = ({ date }: { date: string }) => {
+  return <div className={styles.date}>{date}</div>;
 };
 
-const TweetBody = (props: any) => {
-  return <div className={styles.tweet}>{props.tweet}</div>;
+const Name: React.FC<{ name: string }> = ({ name }: { name: string }) => {
+  return <div className={styles.name}>{name}</div>;
 };
 
-const Tweet = (props: any) => {
+const TweetBody: React.FC<{ tweet: string }> = ({
+  tweet,
+}: {
+  tweet: string;
+}) => {
+  return <div className={styles.tweet}>{tweet}</div>;
+};
+
+const Tweet: React.FC<TweetProps> = ({
+  image,
+  name,
+  date,
+  tweet,
+}: TweetProps) => {
   return (
     <TweetBox>
       <div className={styles.innerBody}>
-        <Image image={props.image} />
+        <Image image={image} />
         <div className={styles.body}>
           <div className={styles.innerBody}>
-            <Name name={props.name} />
-            <Date date={props.date} />
+            <Name name={name} />
+            <Date date={date} />
           </div>
-          <TweetBody tweet={props.tweet} />
+          <TweetBody tweet={tweet} />
         </div>
       </div>
     </TweetBox>

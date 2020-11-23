@@ -31,14 +31,14 @@ const Feeds = (): JSX.Element => {
         </p>
       );
 
-    return feeds.map((tweet: any, index: number | string) => {
+    return feeds.map((tweet: any) => {
       return (
         <Tweet
           name={tweet.user.name}
           tweet={tweet.text}
           date={tweet.created_at}
           image={tweet.user.profile_image_url_https}
-          key={`${index}-${tweet.id}`}
+          key={`key-${tweet.id}`}
         />
       );
     });
@@ -55,7 +55,7 @@ const Feeds = (): JSX.Element => {
         <QuantitySelector />
       </div>
       <div className={styles.container}>
-        <p className="user-title">Tweets from the user :{userSelected}</p>
+        <p className="user-title">Tweets from the user: {userSelected}</p>
         {renderFeeds()}
       </div>
     </>

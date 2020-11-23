@@ -1,14 +1,14 @@
 import React from 'react';
 
-export interface twitterUserListItemProps {
+export interface TwitterUserListItemProps {
   screenName: string;
   profileImage: string;
 }
 
-const twitterUserListItem: React.SFC<twitterUserListItemProps> = ({
+const TwitterUserListItem: React.FC<TwitterUserListItemProps> = ({
   screenName,
   profileImage,
-}) => {
+}: TwitterUserListItemProps) => {
   return (
     <>
       <img
@@ -25,4 +25,4 @@ const twitterUserListItem: React.SFC<twitterUserListItemProps> = ({
   );
 };
 
-export default twitterUserListItem;
+export default TwitterUserListItem;

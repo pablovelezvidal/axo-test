@@ -5,14 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchFeeds } from '../../../slices/feedsSlice';
 import { usersSelector } from '../../../slices/usersSlice';
 
-export interface QuantitySelectorProps {}
-
-const QuantitySelector: React.SFC<QuantitySelectorProps> = () => {
+const QuantitySelector: React.FC<Record<string, unknown>> = () => {
   const dispatch = useDispatch();
   const { userSelected } = useSelector(usersSelector);
 
-  const handleChange = (event: any) => {
-    dispatch(fetchFeeds(userSelected, event.target.value));
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(fetchFeeds(userSelected, +event.target.value));
   };
 
   return (

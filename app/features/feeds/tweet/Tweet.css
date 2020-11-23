@@ -1,9 +1,9 @@
 .tweetBody {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 700px;
   height: 170px;
-  box-shadow: 1px 1px 4px 0px rgba(168, 168, 168, 0.5);
+  box-shadow: 4px -1px 4px 0px rgba(168, 168, 168, 0.5);
   margin-left: 10rem;
   margin-bottom: 0.1rem;
 }
